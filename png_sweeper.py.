@@ -1,0 +1,45 @@
+#!/usr/bin/env python3 """ Ping Sweeper
+ Writer: Ishu Priya
+ GitHub: https://github.com/your-username/network-scanner
+ The purpose of this Python tool is to determine which hosts within a specified subnet are still operational.
+     beneficial for reconnaissance in basic cybersecurity. """
+
+ import platform import subprocess import operating system
+
+ def ping(host): """Ping a host and return True if it's alive.""" param = "-n" if platform.system(). lower() == "windows" else "-c"
+     command = ["ping", param, "1", host]
+     return result == 0 for result = subprocess.call(command, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+
+ if __name__ == "__main__": subnet = input("Enter the subnet (e.g., 192.168.1): ")
+     start = int(input("Enter start of range (e.g., 1): ")) end = int(input("Enter end of range (e.g., 10): "))
+
+     print(f" 🔎 Examining hosts in {subnet}. {start}-{end}")
+
+     for i in range (start, end + 1):
+         "host = f"{subnet}.{i}"
+         if ping(host):
+             Otherwise, print(f"✅ {host} is down)#!/usr/bin/env python3 """
+             Sweeper Ping
+ Writer: Ishu Priya
+ GitHub: https://github.com/your-username/network-scanner
+ The purpose of this Python tool is to determine which hosts within a specified subnet are still operational.
+     helpful for reconnaissance in basic cybersecurity.
+ """
+
+ import platform import subprocess import operating system
+
+ def ping(host): """Ping a host and return True if it's alive.""" param = "-n" if platform.system(). lower() == "windows" else "-c"
+     command = ["ping", param, "1", host]
+     return result == 0 for result = subprocess.call(command, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+
+ if "__main__" == __name__:
+ input = subnet ("Enter the subnet (e.g., 192.168.1): ") start = int(input("Enter start of range (e.g., 1): ")) end = int(input("Enter end of range (e.g., 10): "))
+
+     print(f" 🔎 Examining hosts in {subnet}. {start}-{end}")
+
+     for i in range (start, end + 1):
+         "host = f"{subnet}.{i}"
+         if ping(host):
+             print(f"✅ {host} is alive")
+         Otherwise:
+             print(f"❌ {host} is down")

@@ -1,37 +1,35 @@
-import socket  
-from datetime import datetime  
+#!/usr/bin/env python3 """ Python Network Scanner
+ Writer: Ishu Priya
+ GitHub: https://github.com/your-username/network-scanner
+ Description: An easy-to-use network port scanner for cybersecurity education that runs on Python.
+     looks for open ports on a target host and shows the findings.
+ """
 
-# Banner  
-print("="*50)  
-print("   Simple Python Network Scanner   ")  
-print("="*50)  
+ import datetime import socket import sys
 
-# Ask user for target host  
-target = input("Enter the host to scan (e.g., 127.0.0.1 or scanme.nmap.org): ")  
+ # --------------------------------#  ----------------------------------- Banner #
+ def banner():
+     Print("\n" + "#" * 50)
+     print(" 🚀 Basic Python Network Scanner")
+     print("#" * 50 + "\n")
 
-# Record start time  
-start_time = datetime.now()  
+ # --------------------------------#  # ----------------------------------- Scan function
+ def scan_host(target, start_port=1, end_port=1024):
+     print(f"Scanning target: {target}")
+     print(f"Time started : {datetime.datetime.now()} ")
 
-print(f"\nScanning target: {target}")  
-print(f"Time started: {start_time}\n")  
+     Try this: for port in range(start_port, end_port + 1):
+             S stands for socket. socket(socket.AF_INET, socket.SOCK_STREAM) socket. setdefaulttimeout (0.5)
+s.connect_ex((target, port)) = result
+             if result == 0:
+                 print(f"Port {port}: OPEN")
+             Except for Keyboard, s.close() Interrupt: print("The user interrupted the scan.")
+         Except socket, sys.exit(). gaierror: print("❌ Hostname could not be resolved.")
+         except socket in sys.exit(). error: print("❌ Could not connect to server.") sys.exit()
 
-try:  
-    # Scan ports from 50 to 85 (you can expand range later)  
-    for port in range(50, 86):  
-        s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)  
-        socket.setdefaulttimeout(1)  # 1 second timeout  
-        result = s.connect_ex((target, port))  # returns 0 if port is open  
-        if result == 0:  
-            print(f"Port {port}: OPEN")  
-        s.close()  
+ # --------------------------------#  ---------------------------------main #
+ if "__main__" == __name__:
+     banner() target = input("Enter the host to scan (such as scanme.nmap.org or 127.0.0.1): ")
+     start_port = input("Enter start port [default=1]: ")  or 1 end_port = input("Enter end port [default=1024]: ")  or 1024
 
-except KeyboardInterrupt:  
-    print("\nScan stopped by user.")  
-except socket.gaierror:  
-    print("Hostname could not be resolved.")  
-except socket.error:  
-    print("Couldn't connect to server.")  
-
-# Record end time  
-end_time = datetime.now()  
-print(f"\nScan completed in: {end_time - start_time}")  
+     try: scan_host(target, int(start_port), int(end_port)) except ValueError: print("❌ Invalid port range.")

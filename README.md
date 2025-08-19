@@ -1,33 +1,16 @@
-# Python Network Scanner  
+# 🔐 Tools for Python Cybersecurity
 
-A simple Python-based network port scanner designed for cybersecurity practice. This tool allows you to scan a target host for open ports and understand how port scanning works.  
+ Simple yet effective Python projects for learning and showcasing cybersecurity skills can be found in this repository.  
+ **Ishu Priya** developed it.
 
----
+ ---
 
-## Features  
-- Scans a range of ports on a given host  
-- Identifies open ports  
-- Lightweight and beginner-friendly  
-- Great for learning Python and cybersecurity basics  
+ ## 🚀 Included Projects
 
----
+ ### 1️⃣ Network Scanner (`network_scanner.py`)
+ Checks for open ports on a target host.  
+ Custom port ranges are permitted.  
+ Errors are handled gracefully.  
+ Good for the fundamentals of penetration testing.  
 
-## Project Structure  
-## Installation
-
-### 1. Clone this repo
-```bash
-git clone https://github.com/ishupriyapwc-a11y/network-scanner.git
-cd network-scanner```
-network-scanner/│├── network_scanner.py # Main Python script ├── README.md # Project documentation ├── LICENSE # License file └──.gitignore # Ignore superfluous files
-
-https://github.com/ishupriyapwc-a11y/network-scanner.git cd network-scanner git clone
-network_scanner.py in Python 3.
-
-############################################## Simple Python Network Scanner ##############################################
-
- Provide the host to scan (e.g., 127.0.0.1 or scanme.nmap.org): 127.0.0.1
-
- Scanning target: localhost Time started: 2025-08-19 12:34:56
-
- Port 22: OFFEN Port 80: OFFEN Port 443: OFFEN
+ **How to use it:** ```bash python3 network_scanner.py

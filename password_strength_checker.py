@@ -1,3 +1,4 @@
+
 import regarding
 
  def check_password_strength(password): """Verify the strength of a specified password""" strength = 0 remarks = []
@@ -27,3 +28,7 @@ import regarding
      If feedback, print("Suggestions to improve:")
          for f in the feedback:
              print("-", f)
+To check, enter a password:  Hi there, 123
+ The outcome is a moderate password.
+ Ideas for improvement:
+ - ❌  Include a minimum of one special character (@, $,!, %, *,?, &).

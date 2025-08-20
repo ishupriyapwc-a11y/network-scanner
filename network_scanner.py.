@@ -1,35 +1,43 @@
-#!/usr/bin/env python3 """ Python Network Scanner
- Writer: Ishu Priya
- GitHub: https://github.com/your-username/network-scanner
- Description: An easy-to-use network port scanner for cybersecurity education that runs on Python.
-     looks for open ports on a target host and shows the findings.
- """
+import socket  
+from concurrent.futures import ThreadPoolExecutor  
 
- import datetime import socket import sys
+def scan_target(ip, port):  
+    try:  
+        sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)  
+        sock.settimeout(0.5)  
+        result = sock.connect_ex((ip, port))  
+        if result == 0:  
+            print(f"[OPEN] {ip}:{port}")  
+        sock.close()  
+    except Exception as e:  
+        pass  
 
- # --------------------------------#  ----------------------------------- Banner #
- def banner():
-     Print("\n" + "#" * 50)
-     print(" 🚀 Basic Python Network Scanner")
-     print("#" * 50 + "\n")
+def main():  
+    target = input("Enter target IP (or range like 192.168.1.1-10): ")  
+    ports = input("Enter ports to scan (comma separated, e.g., 22,80,443): ")  
+    
+    # Process ports input  
+    port_list = []  
+    for p in ports.split(","):  
+        if "-" in p:  
+            start, end = map(int, p.split("-"))  
+            port_list.extend(range(start, end+1))  
+        else:  
+            port_list.append(int(p))  
+    
+    # Handle IP range  
+    if "-" in target:  
+        base_ip = ".".join(target.split(".")[:-1])  
+        start, end = map(int, target.split(".")[-1].split("-"))  
+        ip_list = [f"{base_ip}.{i}" for i in range(start, end+1)]  
+    else:  
+        ip_list = [target]  
+    
+    # Scan using threads  
+    with ThreadPoolExecutor(max_workers=50) as executor:  
+        for ip in ip_list:  
+            for port in port_list:  
+                executor.submit(scan_target, ip, port)  
 
- # --------------------------------#  # ----------------------------------- Scan function
- def scan_host(target, start_port=1, end_port=1024):
-     print(f"Scanning target: {target}")
-     print(f"Time started : {datetime.datetime.now()} ")
-
-     Try this: for port in range(start_port, end_port + 1):
-             S stands for socket. socket(socket.AF_INET, socket.SOCK_STREAM) socket. setdefaulttimeout (0.5)
-s.connect_ex((target, port)) = result
-             if result == 0:
-                 print(f"Port {port}: OPEN")
-             Except for Keyboard, s.close() Interrupt: print("The user interrupted the scan.")
-         Except socket, sys.exit(). gaierror: print("❌ Hostname could not be resolved.")
-         except socket in sys.exit(). error: print("❌ Could not connect to server.") sys.exit() 
-
- # --------------------------------#  ---------------------------------main #
- if "__main__" == __name__:
-     banner() target = input("Enter the host to scan (such as scanme.nmap.org or 127.0.0.1): ")
-     start_port = input("Enter start port [default=1]: ")  or 1 end_port = input("Enter end port [default=1024]: ")  or 1024
-
-     try: scan_host(target, int(start_port), int(end_port)) except ValueError: print("❌ Invalid port range.")
+if __name__ == "__main__":  
+    main()  

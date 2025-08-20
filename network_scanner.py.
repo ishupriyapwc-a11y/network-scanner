@@ -1,43 +1,43 @@
-import socket  
-from concurrent.futures import ThreadPoolExecutor  
+import socket
+from concurrent.futures import ThreadPoolExecutor
 
-def scan_target(ip, port):  
-    try:  
-        sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)  
-        sock.settimeout(0.5)  
-        result = sock.connect_ex((ip, port))  
-        if result == 0:  
-            print(f"[OPEN] {ip}:{port}")  
-        sock.close()  
-    except Exception as e:  
-        pass  
+def scan_target(ip, port):
+    try:
+        sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        sock.settimeout(0.5)
+        result = sock.connect_ex((ip, port))
+        if result == 0:
+            print(f"[OPEN] {ip}:{port}")
+        sock.close()
+    except Exception:
+        pass
 
-def main():  
-    target = input("Enter target IP (or range like 192.168.1.1-10): ")  
-    ports = input("Enter ports to scan (comma separated, e.g., 22,80,443): ")  
-    
-    # Process ports input  
-    port_list = []  
-    for p in ports.split(","):  
-        if "-" in p:  
-            start, end = map(int, p.split("-"))  
-            port_list.extend(range(start, end+1))  
-        else:  
-            port_list.append(int(p))  
-    
-    # Handle IP range  
-    if "-" in target:  
-        base_ip = ".".join(target.split(".")[:-1])  
-        start, end = map(int, target.split(".")[-1].split("-"))  
-        ip_list = [f"{base_ip}.{i}" for i in range(start, end+1)]  
-    else:  
-        ip_list = [target]  
-    
-    # Scan using threads  
-    with ThreadPoolExecutor(max_workers=50) as executor:  
-        for ip in ip_list:  
-            for port in port_list:  
-                executor.submit(scan_target, ip, port)  
+def main():
+    target = input("Enter target IP (or range like 192.168.1.1-10): ")
+    ports = input("Enter ports to scan (comma separated, e.g., 22,80,443 or 20-25): ")
 
-if __name__ == "__main__":  
-    main()  
+    # Process ports input
+    port_list = []
+    for p in ports.split(","):
+        if "-" in p:
+            start, end = map(int, p.split("-"))
+            port_list.extend(range(start, end + 1))
+        else:
+            port_list.append(int(p.strip()))
+
+    # Handle IP range
+    if "-" in target:
+        base_ip = ".".join(target.split(".")[:-1])
+        start, end = map(int, target.split(".")[-1].split("-"))
+        ip_list = [f"{base_ip}.{i}" for i in range(start, end + 1)]
+    else:
+        ip_list = [target]
+
+    # Scan using threads
+    with ThreadPoolExecutor(max_workers=50) as executor:
+        for ip in ip_list:
+            for port in port_list:
+                executor.submit(scan_target, ip, port)
+
+if __name__ == "__main__":
+    main()
